@@ -75,15 +75,6 @@ body {
   line-height: 1.8;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
-  /* Sticky footer: on short pages (e.g. Members) the footer sits at the
-     bottom instead of leaving dead background space beneath it. */
-  min-height: 100vh;
-  min-height: 100dvh;
-  display: flex;
-  flex-direction: column;
-}
-main {
-  flex: 1 0 auto;
 }
 
 h1,
