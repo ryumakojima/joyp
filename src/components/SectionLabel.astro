@@ -1,0 +1,27 @@
+---
+interface Props {
+  eyebrow: string;
+  heading?: string;
+  center?: boolean;
+}
+const { eyebrow, heading, center = false } = Astro.props;
+---
+
+<div class:list={['section-label', { center }]}>
+  {heading && <h2 class="section-heading">{heading}</h2>}
+  <slot />
+</div>
+
+<style>
+  .section-label.center {
+    text-align: center;
+  }
+  .section-heading {
+    font-size: var(--text-2xl);
+    margin: 0 0 0.6em;
+  }
+  .section-label.center .section-heading {
+    max-width: 24ch;
+    margin-inline: auto;
+  }
+</style>

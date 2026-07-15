@@ -1,0 +1,91 @@
+---
+interface Post {
+  nickname: string;
+  location: string;
+}
+interface Props {
+  items: Post[];
+  note: string;
+  postLabel: string;
+  postHref: string;
+}
+const { items, note, postLabel, postHref } = Astro.props;
+---
+
+<div class="wall reveal">
+  <div class="wall-grid">
+    {items.map((p) => (
+      <figure class="post">
+        <div class="post-photo">
+          <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round">
+            <rect x="3" y="6" width="18" height="14" rx="2" /><path d="M8 6l1.5-2.5h5L16 6" /><circle cx="12" cy="13" r="3.5" />
+          </svg>
+        </div>
+        <figcaption>
+          <span class="post-nick">{p.nickname}</span>
+          <span class="post-loc">{p.location}</span>
+        </figcaption>
+      </figure>
+    ))}
+  </div>
+  <div class="wall-foot">
+    <p class="wall-note">{note}</p>
+    <a href={postHref} class="btn" {...(postHref.startsWith('http') ? { target: '_blank', rel: 'noopener' } : {})}>{postLabel}</a>
+  </div>
+</div>
+
+<style>
+  .wall-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+  }
+  .post {
+    margin: 0;
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .post-photo {
+    aspect-ratio: 4 / 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--sand-deep);
+    color: var(--gold);
+    opacity: 0.7;
+  }
+  figcaption {
+    display: flex;
+    flex-direction: column;
+    padding: 0.85rem 1rem;
+  }
+  .post-nick {
+    font-weight: 600;
+    font-size: var(--text-sm);
+    color: var(--text);
+  }
+  .post-loc {
+    font-size: var(--text-xs);
+    color: var(--text-soft);
+  }
+  .wall-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+  }
+  .wall-note {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--text-soft);
+  }
+  @media (max-width: 720px) {
+    .wall-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

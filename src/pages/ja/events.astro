@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import SectionLabel from '../../components/SectionLabel.astro';
+import { getSignupUrl, withBase } from '../../config';
+
+import heroEvents from '../../assets/photos/hero-events.jpg';
+
+const signup = getSignupUrl('ja');
+---
+
+<BaseLayout
+  title="日本とオセアニアの交流イベント｜Connection Party 2026"
+  description="日本とオセアニアをつなぐ交流イベント Japan-Oceania Young Professionals Connection Party を2026年11月ごろ開催予定。日程・場所は未定です。"
+  keywords={[
+    '日本 オセアニア イベント',
+    '日本 オセアニア 交流会',
+    '在日 オセアニア イベント',
+    'Japan-Oceania Young Professionals Connection Party',
+  ]}
+>
+  <Hero
+    image={heroEvents}
+    alt="街を見渡す眺め"
+    eyebrow="Events"
+    headline="Connection Party"
+    height="short"
+  />
+
+  <section class="section section-white reveal">
+    <div class="wrap text-center event">
+      <SectionLabel eyebrow="Coming Up · 2026年11月ごろ" center />
+      <h2>Japan-Oceania Young Professionals Connection Party</h2>
+      <p class="lead measure-center">
+        つながりを深める気軽な交流イベントです。留学生、社会人、オセアニアに興味のある方、どなたでも参加可能です。
+      </p>
+      <p class="urgent">定員制・先着順です。詳細はメールリストでお知らせします。</p>
+      <div class="actions center">
+        <a href={withBase('/ja/connection-party')} class="btn btn-solid">詳細を見る</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .event h2 {
+    font-size: var(--text-3xl);
+  }
+  .urgent {
+    color: var(--accent);
+    font-weight: 600;
+    margin-top: 0.4rem;
+  }
+  .note {
+    margin-top: 2.4rem;
+    font-size: var(--text-sm);
+    color: var(--text-soft);
+  }
+</style>

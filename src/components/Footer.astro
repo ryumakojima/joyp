@@ -1,0 +1,174 @@
+---
+import { ui } from '../i18n/ui';
+import { siteConfig, getSignupUrl, withBase } from '../config';
+
+const locale = (Astro.currentLocale ?? 'en') as 'en' | 'ja';
+const t = ui[locale];
+
+// Slugs that only exist in English (no /ja mirror).
+const enOnlySlugs = ['members'];
+
+function hrefFor(slug: string) {
+  if (enOnlySlugs.includes(slug)) return withBase(`/${slug}`);
+  if (locale === 'ja') return withBase(slug ? `/ja/${slug}` : '/ja');
+  return withBase(slug ? `/${slug}` : '/');
+}
+
+const links = [
+  { key: 'about', slug: '' },
+  { key: 'programs', slug: 'programs' },
+  { key: 'events', slug: 'events' },
+  { key: 'members', slug: 'members' },
+  { key: 'getInvolved', slug: 'get-involved' },
+  { key: 'contact', slug: 'contact' },
+] as const;
+
+const signup = getSignupUrl(locale);
+---
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo-row">
+        <img src={withBase('/logo.png')} alt="JOYP logo" class="footer-logo" width="48" height="48" />
+        <span class="footer-tag">JOYP</span>
+      </div>
+      <p class="footer-name">{t.siteName}</p>
+      <p class="footer-tagline">{t.footer.tagline}</p>
+      <div class="socials">
+        <a href={siteConfig.instagram || '#'} aria-label="Instagram">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href={siteConfig.x || '#'} aria-label="X">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M17.5 3h3l-7 8 8.2 10h-6.4l-5-6.1L7.9 21H4.9l7.4-8.5L4.4 3h6.6l4.5 5.6L17.5 3Zm-1 16h1.7L8.1 4.8H6.3L16.5 19Z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4>{t.footer.quickLinks}</h4>
+      <ul>
+        {links.map((link) => (
+          <li><a href={hrefFor(link.slug)}>{t.nav[link.key]}</a></li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>{t.footer.contactUs}</h4>
+      <ul>
+        <li><a href={signup} {...(signup.startsWith('http') ? { target: '_blank', rel: 'noopener' } : {})}>{t.cta}</a></li>
+        <li><a href={hrefFor('contact')}>{t.nav.contact}</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="wrap">
+      <p>{t.footer.copyright}</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--dark-2);
+    color: var(--text-on-dark-soft);
+    margin-top: 0;
+  }
+  .footer-inner {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr;
+    gap: 3rem;
+    padding-top: 4rem;
+    padding-bottom: 3rem;
+  }
+
+  .footer-logo-row {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin-bottom: 1rem;
+  }
+  .footer-logo {
+    width: 46px;
+    height: 46px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    object-fit: cover;
+  }
+  .footer-tag {
+    font-family: var(--font-label);
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: var(--gold-soft);
+  }
+  .footer-name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--text-lg);
+    color: #fff;
+    margin: 0 0 0.4em;
+  }
+  .footer-tagline {
+    font-size: var(--text-sm);
+    color: var(--text-on-dark-soft);
+    margin: 0 0 1.4rem;
+    max-width: 26rem;
+  }
+  .socials {
+    display: flex;
+    gap: 0.7rem;
+  }
+  .socials a {
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.07);
+    color: var(--text-on-dark-soft);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.25s ease, color 0.25s ease;
+  }
+  .socials a:hover {
+    background: var(--gold);
+    color: #fff;
+  }
+
+  .footer-col h4 {
+    font-family: var(--font-display);
+    color: #fff;
+    font-size: var(--text-base);
+    margin-bottom: 1.1rem;
+  }
+  .footer-col ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+  .footer-col a {
+    color: var(--text-on-dark-soft);
+    font-size: var(--text-sm);
+  }
+  .footer-col a:hover {
+    color: var(--gold-soft);
+  }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-block: 1.4rem;
+  }
+  .footer-bottom p {
+    margin: 0;
+    font-size: var(--text-xs);
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  @media (max-width: 760px) {
+    .footer-inner {
+      grid-template-columns: 1fr;
+      gap: 2.2rem;
+    }
+  }
+</style>

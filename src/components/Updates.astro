@@ -1,0 +1,104 @@
+---
+import { Picture } from 'astro:assets';
+import { updates, resolveUpdateImage } from '../data/updates';
+
+const locale = (Astro.currentLocale ?? 'en') as 'en' | 'ja';
+const viewLabel = locale === 'ja' ? 'LinkedInで見る' : 'View on LinkedIn';
+---
+
+<div class="updates-grid">
+  {updates.map((u) => {
+    const t = u[locale];
+    const image = resolveUpdateImage(u.image);
+    return (
+      <article class="update-card">
+        <div class="ratio ratio-43">
+          <Picture
+            src={image}
+            alt={u.alt ?? t.title}
+            widths={[400, 640, 900]}
+            sizes="(min-width: 760px) 32vw, 92vw"
+            formats={['avif', 'webp', 'jpg']}
+            loading="lazy"
+          />
+        </div>
+        <div class="update-body">
+          <span class="update-date">{u.date}</span>
+          <h3 class="update-title">{t.title}</h3>
+          <p class="update-text">{t.body}</p>
+          {u.url && (
+            <a class="update-link" href={u.url} target="_blank" rel="noopener">
+              {viewLabel} →
+            </a>
+          )}
+        </div>
+      </article>
+    );
+  })}
+</div>
+
+<style>
+  .updates-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.4rem;
+  }
+  .update-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .update-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 36px -22px rgba(14, 40, 64, 0.5);
+  }
+  .update-body {
+    padding: 1rem 1.15rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .update-date {
+    font-family: var(--font-label);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: var(--gold-dark);
+  }
+  .update-title {
+    font-size: var(--text-base);
+    margin: 0.1rem 0 0;
+  }
+  .update-text {
+    font-size: var(--text-sm);
+    color: var(--text-soft);
+    margin: 0;
+    line-height: 1.6;
+  }
+  .update-link {
+    margin-top: 0.35rem;
+    font-family: var(--font-label);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--gold-dark);
+    align-self: flex-start;
+  }
+  .update-link:hover {
+    color: var(--gold);
+  }
+  @media (max-width: 760px) {
+    .updates-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (max-width: 480px) {
+    .updates-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

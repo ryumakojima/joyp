@@ -1,0 +1,245 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import SectionLabel from '../components/SectionLabel.astro';
+import Stats from '../components/Stats.astro';
+import Updates from '../components/Updates.astro';
+import { updates } from '../data/updates';
+import { getSignupUrl, siteConfig, withBase } from '../config';
+
+import heroHome from '../assets/photos/hero-home.jpg';
+
+const signup = getSignupUrl('en');
+
+// ← Edit these numbers as the community grows
+const reachStats = [
+  { value: 5, suffix: '', label: 'Countries connected' },
+  { value: 10, suffix: '+', label: 'Members' },
+];
+
+const faqLd = {
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What is Japan-Oceania Young Professionals?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Japan-Oceania Young Professionals is a Japan-Oceania exchange community in Japan connecting young generations through networking, culture, and sport.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Who can join JOYP?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Young professionals, students, Oceanian residents in Japan, volunteers, partners, and anyone interested in Oceanian culture, language, business, or exchange can join.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'When is the first Japan-Oceania event?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'The first event, Japan-Oceania Young Professionals Connection Party, is planned for around November 2026 in Japan. Date and venue will be announced later.',
+      },
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title="Japan-Oceania Young Professionals | Oceanian Community in Japan"
+  description="A Japan-Oceania exchange community in Japan connecting young professionals, students, and the Oceanian community through networking events, culture, and sport."
+  keywords={[
+    'Japan Oceania community in Japan',
+    'Japan Oceania networking',
+    'Oceanian community in Japan',
+    'Japan Oceania events',
+    'Oceania culture Japan',
+  ]}
+  jsonLd={faqLd}
+>
+  <Hero
+    image={heroHome}
+    alt="A wide open landscape under a soft sky"
+    eyebrow="Japan–Oceania Connection"
+    headline={`A youth-led bridge\nbetween Japan and Oceania.`}
+    subhead="An organization deepening exchange between young generations across Oceania and Japan."
+    ctaLabel="Join Us !"
+    ctaHref={signup}
+  />
+
+  <!-- Why -->
+  <section class="section section-white reveal">
+    <div class="wrap why">
+      <div class="why-text">
+        <SectionLabel eyebrow="Why JOYP" heading="A place for young generations to meet." />
+        <p>Every year, more young people from Japan connect with Oceania through study, work, and travel. At the same time, more young Oceanians are coming to Japan to study, work, and build new lives.</p>
+        <p>But there are still few events or organizations that consistently bring young generations from both sides together. So we are building one.</p>
+        <p>JOYP is a starting point for anyone looking for a Japan–Oceania exchange community, or events where they can experience Oceanian culture in Japan.</p>
+        {siteConfig.onePageBriefUrl && (
+          <div class="actions">
+            <a href={withBase(siteConfig.onePageBriefUrl)} class="btn">
+              Download the one-page brief (PDF)
+            </a>
+          </div>
+        )}
+      </div>
+      <div class="evidence-stack">
+        <div class="flow-card reveal">
+          <p class="flow-kicker">Oceania → Japan</p>
+          <p>
+            More young people from across Oceania are studying, working,
+            and settling in Japan — but there are few places built to bring that
+            community together.
+          </p>
+        </div>
+        <div class="flow-card reveal">
+          <p class="flow-kicker">Japan → Oceania</p>
+          <p>
+            And more young people in Japan are drawn to Oceania through
+            study, work, culture, and travel. JOYP is where those two sides meet.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reach stats -->
+  <section class="section section-dark reveal" style="padding-block: clamp(2.5rem, 6vw, 4.2rem);">
+    <div class="wrap text-center">
+      <SectionLabel eyebrow="Our reach so far" center />
+      <div style="margin-top:1.6rem;">
+        <Stats items={reachStats} />
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section section-white reveal">
+    <div class="wrap faq">
+      <SectionLabel eyebrow="FAQ" heading="Common questions." center />
+      <div class="faq-grid">
+        <article>
+          <h3>What is JOYP?</h3>
+          <p>A Japan–Oceania exchange community in Japan for networking, cultural exchange, and sport.</p>
+        </article>
+        <article>
+          <h3>Who can join?</h3>
+          <p>Young professionals, students, Oceanian residents in Japan, volunteers, partners, and friends of the region.</p>
+        </article>
+        <article>
+          <h3>When is the first event?</h3>
+          <p>Japan-Oceania Young Professionals Connection Party is planned for around November 2026. Date and venue TBD.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- First event -->
+  <section class="section section-sand reveal">
+    <div class="wrap text-center event-block">
+      <SectionLabel eyebrow="Connection Party · Around November 2026" center />
+      <h2>Japan-Oceania Young Professionals Connection Party</h2>
+      <p class="lead measure-center">
+        A relaxed event to deepen connections. Students, working professionals,
+        and anyone interested in Oceania can join. Spots are limited and
+        first-come, first-served. So stay tuned !
+      </p>
+      <div class="actions center">
+        <a href={withBase('/connection-party')} class="btn btn-solid">See details</a>
+      </div>
+    </div>
+  </section>
+
+  {updates.length > 0 && (
+    <section class="section section-white reveal">
+      <div class="wrap">
+        <SectionLabel eyebrow="Updates" heading="What we've been up to." center />
+        <div style="margin-top:2.2rem;">
+          <Updates />
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- CTA -->
+  <section class="section section-dark text-center reveal">
+    <div class="wrap">
+      <h2>Join Us !</h2>
+      <div class="actions center">
+        <a href={signup} class="btn btn-solid" target="_blank" rel="noopener">Sign up</a>
+        <a href={withBase('/get-involved')} class="btn btn-light">See the benefits</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .why {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+  }
+  .why-text p {
+    color: var(--text-soft);
+  }
+  .evidence-stack {
+    display: grid;
+    gap: 1rem;
+  }
+  .flow-card {
+    background: var(--dark);
+    color: var(--text-on-dark);
+    border-radius: 12px;
+    padding: 1.25rem 1.35rem;
+  }
+  .flow-card p {
+    margin: 0;
+  }
+  .flow-card p + p {
+    margin-top: 0.7rem;
+  }
+  .flow-kicker {
+    font-family: var(--font-label);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold-soft);
+  }
+  .faq-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .faq-grid article {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.35rem;
+    background: var(--paper);
+  }
+  .faq-grid h3 {
+    font-size: var(--text-lg);
+    margin-bottom: 0.45rem;
+  }
+  .faq-grid p {
+    color: var(--text-soft);
+    font-size: var(--text-sm);
+    margin: 0;
+  }
+  .event-block h2 {
+    font-size: var(--text-3xl);
+  }
+  @media (max-width: 860px) {
+    .why {
+      grid-template-columns: 1fr;
+    }
+    .faq-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

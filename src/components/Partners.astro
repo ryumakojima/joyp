@@ -1,0 +1,70 @@
+---
+interface Partner {
+  logo: string; // path under /public, e.g. '/partners/acme.svg'
+  name: string;
+  url?: string;
+}
+interface Props {
+  items: Partner[];
+}
+const { items } = Astro.props;
+---
+
+<div class="partners-grid">
+  {items.map((p) => {
+    const inner = (
+      <>
+        <div class="partner-logo">
+          <img src={p.logo} alt={p.name} loading="lazy" />
+        </div>
+        <span class="partner-name">{p.name}</span>
+      </>
+    );
+    return p.url ? (
+      <a class="partner" href={p.url} target="_blank" rel="noopener">{inner}</a>
+    ) : (
+      <div class="partner">{inner}</div>
+    );
+  })}
+</div>
+
+<style>
+  .partners-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.4rem;
+  }
+  .partner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 1.5rem 1rem;
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    color: var(--text);
+  }
+  .partner-logo {
+    width: 100%;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .partner-logo img {
+    max-height: 100%;
+    max-width: 80%;
+    object-fit: contain;
+  }
+  .partner-name {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-align: center;
+  }
+  @media (max-width: 760px) {
+    .partners-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

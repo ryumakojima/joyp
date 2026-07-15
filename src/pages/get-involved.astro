@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import CardGrid from '../components/CardGrid.astro';
+import SectionLabel from '../components/SectionLabel.astro';
+import { getSignupUrl, withBase } from '../config';
+
+import heroJoin from '../assets/photos/hero-join.jpg';
+
+const signup = getSignupUrl('en');
+---
+
+<BaseLayout
+  title="Join a Japan Oceania Community in Japan | JOYP"
+  description="Join Japan-Oceania Young Professionals if you are in Japan and interested in Oceania, the Oceanian community in Japan, volunteering, events, or partnerships."
+  keywords={[
+    'join Japan Oceania community',
+    'Oceanian community in Japan',
+    'Oceania volunteer Japan',
+    'Japan Oceania partnership',
+  ]}
+>
+  <Hero
+    image={heroJoin}
+    alt="An open landscape at golden hour"
+    eyebrow="Get Involved"
+    headline="Join us."
+    height="short"
+  />
+
+  <section class="section section-white reveal">
+    <div class="wrap">
+      <SectionLabel eyebrow="Who Can Join" heading="Everyone's welcome." center />
+      <div style="margin-top:2.2rem;">
+        <CardGrid
+          items={[
+            { icon: 'students', accent: 'gold', heading: 'In Japan, into Oceania', body: 'Anyone curious about Oceanian culture, language, business, or history — students and working people.', ctaLabel: 'Say hello', ctaHref: withBase('/contact') },
+            { icon: 'partner', accent: 'accent', heading: 'Oceanian community in Japan', body: 'From any country in the region, living in Japan. Come meet people.', ctaLabel: 'Say hello', ctaHref: withBase('/contact') },
+            { icon: 'volunteer', accent: 'green', heading: 'Volunteers & partners', body: 'Help run events, or partner with us as a company or school.', ctaLabel: 'Say hello', ctaHref: withBase('/contact') },
+          ]}
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-dark text-center reveal">
+    <div class="wrap">
+      <h2>Want in?</h2>
+      <div class="actions center">
+        <a href={signup} class="btn btn-solid" target="_blank" rel="noopener">Join us</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

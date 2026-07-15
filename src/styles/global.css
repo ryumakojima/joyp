@@ -1,0 +1,330 @@
+/* Fonts are loaded via Google Fonts <link> in BaseLayout.astro:
+   - Cinzel        -> decorative Latin labels / numbers
+   - Noto Serif JP -> headings (covers Latin + Japanese)
+   - Noto Sans JP  -> body (covers Latin + Japanese) */
+
+:root {
+  /* Core palette — "Pacific": deep ocean blue + coral on warm shell-sand.
+     Evokes Oceania — open sea, lagoons, coral reefs, island light.
+     NOTE: the token names are historical (from the JAYP savanna theme). The
+     roles are what matter:
+       --gold*   = PRIMARY brand (ocean blue) — CTAs, links, eyebrows on light.
+       --gold-soft = light SKY/AQUA highlight — accents on DARK backgrounds.
+       --accent* = SECONDARY (coral).  --green = lagoon/palm green (tertiary). */
+  --gold: #1668a8; /* ocean blue — primary brand / CTA fill (white text on it) */
+  --gold-dark: #0f4e80; /* deep sea blue — link + eyebrow text on light bg */
+  --gold-soft: #8fd0f0; /* light sky/aqua — highlight text on dark sections/heroes */
+  --dark: #0e2c44; /* deep ocean navy (dark sections + footer) */
+  --dark-2: #091d30;
+  --sand: #f3ede2; /* warm shell-sand page background */
+  --sand-deep: #e9ddc9; /* slightly deeper panels */
+  --paper: #ffffff; /* white sections */
+  --accent: #d24e33; /* coral / hibiscus (secondary) */
+  --accent-dark: #b23f27;
+  --green: #2e8b6f; /* lagoon / palm green (tertiary) */
+
+  --text: #24211f;
+  --text-soft: #57514c;
+  --text-on-dark: #eaf1f6;
+  --text-on-dark-soft: #b7c4d2;
+  --border: #e3dccb;
+  --border-dark: rgba(255, 255, 255, 0.12);
+
+  /* Type scale */
+  --text-xs: 0.78rem;
+  --text-sm: 0.9rem;
+  --text-base: 1.0rem;
+  --text-lg: 1.2rem;
+  --text-xl: 1.5rem;
+  --text-2xl: clamp(1.7rem, 3vw, 2.3rem);
+  --text-3xl: clamp(2.1rem, 5vw, 3.2rem);
+  --text-hero: clamp(2.4rem, 6.5vw, 4.6rem);
+
+  /* Fonts */
+  --font-label: 'Cinzel', 'Noto Serif JP', serif;
+  --font-display: 'Noto Serif JP', 'Times New Roman', serif;
+  --font-body: 'Noto Sans JP', system-ui, sans-serif;
+
+  /* Layout */
+  --content-max: 76rem;
+  --content-padding: 1.4rem;
+  --nav-height: 4.75rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--nav-height);
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--sand);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: var(--text-base);
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 0 0 0.5em;
+  color: var(--text);
+  letter-spacing: 0.01em;
+  text-wrap: balance;
+}
+
+p {
+  margin: 0 0 1.3em;
+  text-wrap: pretty;
+}
+
+/* Japanese line-breaking: break at natural phrase boundaries, avoid awkward
+   mid-word wraps. Progressive enhancement — ignored by browsers that don't
+   support these values. */
+:lang(ja) {
+  line-break: strict;
+}
+:lang(ja) h1,
+:lang(ja) h2,
+:lang(ja) h3,
+:lang(ja) h4,
+:lang(ja) p,
+:lang(ja) .lead,
+:lang(ja) .hero-subhead {
+  word-break: auto-phrase;
+}
+
+a {
+  color: var(--gold-dark);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--accent);
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+ul,
+ol {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+button {
+  font-family: var(--font-body);
+  cursor: pointer;
+}
+
+/* ---------- Layout helpers ---------- */
+.wrap {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 0 var(--content-padding);
+}
+
+.section {
+  padding-block: clamp(3.5rem, 8vw, 6.5rem);
+  position: relative;
+}
+
+.section-white {
+  background: var(--paper);
+}
+.section-sand {
+  background: var(--sand);
+}
+.section-deep {
+  background: var(--sand-deep);
+}
+.section-dark {
+  background: var(--dark);
+  color: var(--text-on-dark);
+}
+.section-dark h1,
+.section-dark h2,
+.section-dark h3,
+.section-dark h4 {
+  color: #fff;
+}
+
+/* ---------- Decorative section label (gold rule + Cinzel eyebrow) ---------- */
+.label {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-bottom: 1rem;
+}
+.label.center {
+  justify-content: center;
+}
+.label .rule {
+  width: 2.75rem;
+  height: 2px;
+  background: var(--gold);
+}
+.label .eyebrow {
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  margin: 0;
+}
+.section-dark .label .eyebrow {
+  color: var(--gold-soft);
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.85em 1.9em;
+  border: 1.5px solid var(--gold);
+  color: var(--gold-dark);
+  background: transparent;
+  border-radius: 999px;
+  transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+.btn:hover {
+  background: var(--gold);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px -10px rgba(15, 78, 128, 0.55);
+}
+.btn-solid {
+  background: var(--gold);
+  color: #fff;
+  border-color: var(--gold);
+}
+.btn-solid:hover {
+  background: var(--gold-dark);
+  border-color: var(--gold-dark);
+  color: #fff;
+}
+.btn-light {
+  border-color: rgba(255, 255, 255, 0.7);
+  color: #fff;
+}
+.btn-light:hover {
+  background: #fff;
+  color: var(--dark);
+  box-shadow: none;
+}
+
+/* ---------- Scroll reveal (progressive enhancement) ---------- */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .js .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ---------- Image frame helpers (object-fit: cover everywhere → no distortion) ---------- */
+.ratio {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+.ratio > img,
+.ratio > picture {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.ratio > picture > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.ratio-43 {
+  aspect-ratio: 4 / 3;
+}
+.ratio-32 {
+  aspect-ratio: 3 / 2;
+}
+.ratio-11 {
+  aspect-ratio: 1 / 1;
+}
+.ratio-169 {
+  aspect-ratio: 16 / 9;
+}
+.ratio-portrait {
+  aspect-ratio: 3 / 4;
+}
+
+/* ---------- Small content helpers ---------- */
+.lead {
+  font-size: var(--text-lg);
+  font-weight: 300;
+  color: var(--text-soft);
+}
+.section-dark .lead {
+  color: var(--text-on-dark-soft);
+}
+.measure {
+  max-width: 46rem;
+}
+.measure-center {
+  max-width: 46rem;
+  margin-inline: auto;
+}
+.text-center {
+  text-align: center;
+}
+.actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+.actions.center {
+  justify-content: center;
+}
+.mt-l {
+  margin-top: 2.2rem;
+}

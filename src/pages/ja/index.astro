@@ -1,0 +1,242 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import SectionLabel from '../../components/SectionLabel.astro';
+import Stats from '../../components/Stats.astro';
+import Updates from '../../components/Updates.astro';
+import { updates } from '../../data/updates';
+import { getSignupUrl, siteConfig, withBase } from '../../config';
+
+import heroHome from '../../assets/photos/hero-home.jpg';
+
+const signup = getSignupUrl('ja');
+
+// ← コミュニティの成長に合わせて数字を更新
+const reachStats = [
+  { value: 5, suffix: '', label: 'Countries connected' },
+  { value: 10, suffix: '+', label: 'Members' },
+];
+
+const faqLd = {
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Japan-Oceania Young Professionalsとは何ですか？',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Japan-Oceania Young Professionalsは、日本とオセアニアの若い世代をつなぐ交流コミュニティです。',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '誰が参加できますか？',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: '社会人、学生、在日のオセアニア出身の方、オセアニアに関心のある方、ボランティア、パートナーなど、幅広く参加できます。',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'イベントは例えば何がありますか？',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: '2026年11月ごろに、初回の交流イベント（Connection Party）を開催しようと調整中です。',
+      },
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title="日本とオセアニアの交流コミュニティ｜Japan-Oceania Young Professionals"
+  description="日本とオセアニアをつなぐバイリンガルな交流コミュニティ。社会人・学生・在日のオセアニア出身の方が、イベント、文化交流、スポーツで出会う場です。"
+  keywords={[
+    '日本 オセアニア 交流コミュニティ',
+    '日本 オセアニア イベント',
+    '在日 オセアニア コミュニティ',
+    'オセアニア 文化交流 日本',
+    'Japan-Oceania Young Professionals',
+  ]}
+  jsonLd={faqLd}
+>
+  <Hero
+    image={heroHome}
+    alt="広い空の下の風景"
+    eyebrow="Japan–Oceania Connection"
+    headline={`若者主体の\n日本とオセアニアの架け橋`}
+    subhead="若い世代のオセアニアと日本の交流を深めるための組織です。"
+    ctaLabel="コミュニティーの一員になる！"
+    ctaHref={signup}
+  />
+
+  <!-- Why -->
+  <section class="section section-white reveal">
+    <div class="wrap why">
+      <div class="why-text">
+        <SectionLabel eyebrow="Why JOYP" heading="若い世代のための交流場所の確保" />
+        <p>年々、留学や仕事を通じてオセアニアに関わる日本の若者は増えており、同様にオセアニアから日本に留学・移住する若者も増えています。</p>
+        <p>ただ、その両方の若者をつなぐ交流会や組織が少なく、継続的に出会える場が限られています。だから、私たちがつくります。</p>
+        <p>日本とオセアニアの交流コミュニティ、オセアニア文化にふれるイベントを探している方の入り口を目指し活動しています。</p>
+        {siteConfig.onePageBriefUrl && (
+          <div class="actions">
+            <a href={withBase(siteConfig.onePageBriefUrl)} class="btn">
+              1ページ概要をダウンロード（PDF）
+            </a>
+          </div>
+        )}
+      </div>
+      <div class="evidence-stack">
+        <div class="flow-card reveal">
+          <p class="flow-kicker">Oceania → Japan</p>
+          <p>
+            オセアニア各国から日本に留学・就職・移住する若者は増えています。
+            けれど、そのコミュニティが集まれる場所はまだ多くありません。
+          </p>
+        </div>
+        <div class="flow-card reveal">
+          <p class="flow-kicker">Japan → Oceania</p>
+          <p>
+            同時に、留学・仕事・文化・旅行を通じてオセアニアに惹かれる日本の若者も増えています。
+            JOYP は、その両者が出会う場所です。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reach stats -->
+  <section class="section section-dark reveal" style="padding-block: clamp(2.5rem, 6vw, 4.2rem);">
+    <div class="wrap text-center">
+      <SectionLabel eyebrow="Current reach" center />
+      <div style="margin-top:1.6rem;">
+        <Stats items={reachStats} />
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section section-white reveal">
+    <div class="wrap faq">
+      <SectionLabel eyebrow="FAQ" heading="私たちについて" center />
+      <div class="faq-grid">
+        <article>
+          <h3>私たちについて</h3>
+          <p>日本とオセアニアの若い世代をつなぐ、交流コミュニティーです。</p>
+        </article>
+        <article>
+          <h3>誰が対象ですか？</h3>
+          <p>社会人、学生、在日のオセアニア出身の方、オセアニアに関心のある方なら歓迎です。</p>
+        </article>
+        <article>
+          <h3>イベントは例えば何がありますか？</h3>
+          <p>2026年11月ごろに、初回の交流イベント（Connection Party）を開催しようと調整中です。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- First event -->
+  <section class="section section-sand reveal">
+    <div class="wrap text-center event-block">
+      <SectionLabel eyebrow="2026年11月ごろ" center />
+      <h2>Japan-Oceania Young Professionals Connection Party</h2>
+      <p class="lead measure-center">
+        つながりを深める気軽な交流イベントです。留学生、社会人、オセアニアに興味のある方、どなたでも参加可能です。定員制・先着順です。
+      </p>
+      <div class="actions center">
+        <a href={withBase('/ja/connection-party')} class="btn btn-solid">詳細を見る</a>
+      </div>
+    </div>
+  </section>
+
+  {updates.length > 0 && (
+    <section class="section section-white reveal">
+      <div class="wrap">
+        <SectionLabel eyebrow="活動報告" heading="これまでの活動。" center />
+        <div style="margin-top:2.2rem;">
+          <Updates />
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- CTA -->
+  <section class="section section-dark text-center reveal">
+    <div class="wrap">
+      <h2>活動に参加する！</h2>
+      <div class="actions center">
+        <a href={signup} class="btn btn-solid" target="_blank" rel="noopener">参加フォームへ</a>
+        <a href={withBase('/ja/get-involved')} class="btn btn-light">活動・イベント詳細</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .why {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+  }
+  .why-text p {
+    color: var(--text-soft);
+  }
+  .evidence-stack {
+    display: grid;
+    gap: 1rem;
+  }
+  .flow-card {
+    background: var(--dark);
+    color: var(--text-on-dark);
+    border-radius: 12px;
+    padding: 1.25rem 1.35rem;
+  }
+  .flow-card p {
+    margin: 0;
+  }
+  .flow-card p + p {
+    margin-top: 0.7rem;
+  }
+  .flow-kicker {
+    font-family: var(--font-label);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold-soft);
+  }
+  .faq-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .faq-grid article {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.35rem;
+    background: var(--paper);
+  }
+  .faq-grid h3 {
+    font-size: var(--text-lg);
+    margin-bottom: 0.45rem;
+  }
+  .faq-grid p {
+    color: var(--text-soft);
+    font-size: var(--text-sm);
+    margin: 0;
+  }
+  .event-block h2 {
+    font-size: var(--text-3xl);
+  }
+  @media (max-width: 860px) {
+    .why {
+      grid-template-columns: 1fr;
+    }
+    .faq-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

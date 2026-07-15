@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import CardGrid from '../../components/CardGrid.astro';
+import SectionLabel from '../../components/SectionLabel.astro';
+import { getSignupUrl, withBase } from '../../config';
+
+import heroPrograms from '../../assets/photos/hero-programs.jpg';
+
+const signup = getSignupUrl('ja');
+---
+
+<BaseLayout
+  title="活動内容｜日本とオセアニアの交流・文化・スポーツ"
+  description="日本とオセアニアをつなぐ交流イベント、文化交流、スポーツを行います。在日のオセアニアコミュニティと日本の若者が出会う場です。"
+  keywords={[
+    '日本 オセアニア 交流イベント',
+    'オセアニア 文化交流 日本',
+    '在日 オセアニア コミュニティ',
+    '日本 オセアニア スポーツ',
+  ]}
+>
+  <Hero
+    image={heroPrograms}
+    alt="日常の活気にあふれた通り"
+    eyebrow="What We Do"
+    headline="What we do."
+    height="short"
+  />
+
+  <section class="section section-white reveal">
+    <div class="wrap">
+      <SectionLabel eyebrow="In Person" heading="Three ways to meet." center />
+      <div style="margin-top:2.2rem;">
+        <CardGrid
+          items={[
+            { icon: 'network', accent: 'gold', heading: 'Networking', body: '気軽に集まって、友だちやつながりをつくります。' },
+            { icon: 'culture', accent: 'accent', heading: 'Culture', body: 'オセアニアと日本の食や音楽、言葉にふれます。' },
+            { icon: 'sports', accent: 'green', heading: 'Sports & Soccer', body: 'サッカーやスポーツで体を動かします。言葉はいりません。' },
+          ]}
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-dark text-center reveal">
+    <div class="wrap">
+      <h2>まずは Connection Party から。</h2>
+      <p class="lead measure-center">第一回は2026年11月ごろに開催予定です。</p>
+      <div class="actions center">
+        <a href={signup} class="btn btn-solid" target="_blank" rel="noopener">Get an invite</a>
+        <a href={withBase('/ja/events')} class="btn btn-light">Events</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

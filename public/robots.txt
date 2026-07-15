@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ryumakojima.github.io/joyp/sitemap-index.xml

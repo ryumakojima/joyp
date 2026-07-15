@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import CardGrid from '../components/CardGrid.astro';
+import SectionLabel from '../components/SectionLabel.astro';
+import { getSignupUrl, withBase } from '../config';
+
+import heroPrograms from '../assets/photos/hero-programs.jpg';
+
+const signup = getSignupUrl('en');
+---
+
+<BaseLayout
+  title="Japan Oceania Networking, Culture & Soccer | JOYP"
+  description="Japan-Oceania Young Professionals runs networking, cultural exchange, and sports activities connecting people in Japan with the Oceanian community."
+  keywords={[
+    'Japan Oceania networking',
+    'Oceanian cultural exchange Japan',
+    'Oceania soccer Japan',
+    'Japan Oceania programs',
+  ]}
+>
+  <Hero
+    image={heroPrograms}
+    alt="A lively street full of everyday life"
+    eyebrow="What We Do"
+    headline="What we'll do."
+    height="short"
+  />
+
+  <section class="section section-white reveal">
+    <div class="wrap">
+      <SectionLabel eyebrow="In Person" heading="Three ways to meet." center />
+      <div style="margin-top:2.2rem;">
+        <CardGrid
+          items={[
+            { icon: 'network', accent: 'gold', heading: 'Networking', body: 'Casual meetups to make friends and connections.' },
+            { icon: 'culture', accent: 'accent', heading: 'Cultural Exchange', body: 'Food, music, and language — from Oceania and Japan.' },
+            { icon: 'sports', accent: 'green', heading: 'Sports & Soccer', body: 'Soccer and sports days. No common language needed.' },
+          ]}
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-dark text-center reveal">
+    <div class="wrap">
+      <h2>It starts with the Connection Party.</h2>
+      <p class="lead measure-center">Our first event is planned for around November 2026.</p>
+      <div class="actions center">
+        <a href={signup} class="btn btn-solid" target="_blank" rel="noopener">Get an invite</a>
+        <a href={withBase('/events')} class="btn btn-light">Events</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

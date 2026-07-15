@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import CardGrid from '../../components/CardGrid.astro';
+import SectionLabel from '../../components/SectionLabel.astro';
+import { getSignupUrl, withBase } from '../../config';
+
+import heroJoin from '../../assets/photos/hero-join.jpg';
+
+const signup = getSignupUrl('ja');
+---
+
+<BaseLayout
+  title="参加する｜日本とオセアニアの交流コミュニティ JOYP"
+  description="オセアニアに関心のある日本の方、在日のオセアニア出身の方、ボランティア、企業・学校パートナーを歓迎します。日本とオセアニアをつなぐ活動に参加できます。"
+  keywords={[
+    '日本 オセアニア コミュニティ 参加',
+    '在日 オセアニア コミュニティ',
+    'オセアニア ボランティア 日本',
+    '日本 オセアニア パートナー',
+  ]}
+>
+  <Hero
+    image={heroJoin}
+    alt="夕暮れの開けた風景"
+    eyebrow="Get Involved"
+    headline="Get involved."
+    height="short"
+  />
+
+  <section class="section section-white reveal">
+    <div class="wrap">
+      <SectionLabel eyebrow="Who Can Join" heading="どなたでも歓迎です。" center />
+      <div style="margin-top:2.2rem;">
+        <CardGrid
+          items={[
+            { icon: 'students', accent: 'gold', heading: 'Friends of Oceania', body: 'オセアニアの文化や言語、ビジネス、歴史に関心のある方。学生でも社会人でも歓迎します。', ctaLabel: 'Contact', ctaHref: withBase('/ja/contact') },
+            { icon: 'partner', accent: 'accent', heading: 'Oceanian community in Japan', body: 'オセアニアのどの国の出身でも、日本で暮らしているなら大歓迎です。気軽に集まりましょう。', ctaLabel: 'Contact', ctaHref: withBase('/ja/contact') },
+            { icon: 'volunteer', accent: 'green', heading: 'Volunteers & partners', body: 'イベント運営を手伝ってくれる方、企業・学校として協力したい方も歓迎します。', ctaLabel: 'Contact', ctaHref: withBase('/ja/contact') },
+          ]}
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-dark text-center reveal">
+    <div class="wrap">
+      <h2>Want to join?</h2>
+      <div class="actions center">
+        <a href={signup} class="btn btn-solid" target="_blank" rel="noopener">Join us</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

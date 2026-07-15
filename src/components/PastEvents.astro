@@ -1,0 +1,78 @@
+---
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface EventItem {
+  image: ImageMetadata;
+  name: string;
+  date: string; // e.g. '2026.04.19'
+}
+interface Props {
+  items: EventItem[];
+}
+const { items } = Astro.props;
+---
+
+<div class="past-grid">
+  {items.map((ev) => (
+    <article class="past-card">
+      <div class="ratio ratio-43">
+        <Picture
+          src={ev.image}
+          alt={ev.name}
+          widths={[300, 500, 700]}
+          sizes="(min-width: 760px) 30vw, 90vw"
+          formats={['avif', 'webp', 'jpg']}
+          loading="lazy"
+        />
+      </div>
+      <div class="past-meta">
+        <span class="past-date">{ev.date}</span>
+        <h3 class="past-name">{ev.name}</h3>
+      </div>
+    </article>
+  ))}
+</div>
+
+<style>
+  .past-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.4rem;
+  }
+  .past-card {
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .past-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 36px -22px rgba(14, 40, 64, 0.5);
+  }
+  .past-meta {
+    padding: 0.9rem 1.1rem 1.15rem;
+  }
+  .past-date {
+    font-family: var(--font-label);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: var(--gold-dark);
+  }
+  .past-name {
+    font-size: var(--text-base);
+    margin: 0.25rem 0 0;
+  }
+  @media (max-width: 760px) {
+    .past-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (max-width: 480px) {
+    .past-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
